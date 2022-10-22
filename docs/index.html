@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <meta name="description" content="GitHub pages with CSV files review tool" />
+    <meta charset="utf-8" />
+    <title>CSV review tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="" />
+    <style>
+        .point {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            display: block;
+            border-radius: 100%;
+            border: 1px solid #000;
+        }
+
+        .diagram {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        Notice:
+        This page does not use cookies.
+        This page does not save any user data.
+        This page is not any comercial page.
+        Source code is avaliable here: https://github.com/adrianscheit/csv-dt-viewer
+    </p>
+    <h1>WEB CSV Viewer</h1>
+    <ul>
+        <li>Encoding: ASCII, UTF-8</li>
+        <li>comma as a field separator</li>
+        <li>new line as a entry separator</li>
+        <li>first line as title</li>
+        <li>dot as decimal separator</li>
+        <li>first column as the domain for every other column</li>
+    </ul>
+    <form>
+        <label>Source file: <input type="file" required accept=".csv" /></label>
+    </form>
+    <div id="status"></div>
+    <div id="constans"></div>
+    <div id="diagrams"></div>
+    <script src="main.js"></script>
+</body>
+
+</html>

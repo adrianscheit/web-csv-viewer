@@ -1,0 +1,25 @@
+{
+  "name": "web-csv-viewer",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/main.ts",
+  "scripts": {
+    "start": "git pull && npm update && webpack && git add -A && git commit -m. && git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianscheit/csv-dt-viewer.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/adrianscheit/csv-dt-viewer/issues"
+  },
+  "homepage": "https://github.com/adrianscheit/csv-dt-viewer#readme",
+  "devDependencies": {
+    "ts-loader": "9",
+    "typescript": "4",
+    "webpack": "5",
+    "webpack-cli": "4"
+  }
+}
