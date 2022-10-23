@@ -3,8 +3,8 @@ import { addConstant, setStatus } from "./dom";
 
 document.querySelector('input[type=file]')!.addEventListener('input', (event) => {
   const files: FileList = (event.target as any).files;
-  if (files.length) {
-    setStatus('Reading a text file...');
+  if (files.length === 1) {
+    setStatus(`Reading a text file of ${files[0].size}B...`);
     const reader = new FileReader();
     reader.onload = () => {
       const fields: string[][] = (reader.result as string)
