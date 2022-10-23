@@ -11,7 +11,7 @@ export class Column {
   }
 
   private hexFromIndexMul(mul: number): string {
-    return (mul * this.index).toString(16);
+    return ((mul * this.index) & 0xff).toString(16);
   }
 
   add(v: number): void {
