@@ -37,7 +37,7 @@ export class Column {
     return this.amplitude === 0;
   }
 
-  getProprotion(v: number): number {
-    return (v - this.min) / this.amplitude;
+  getProprotion(line: number[]): number {
+    return (line[this.index] - this.min) / this.amplitude;
   }
 }
