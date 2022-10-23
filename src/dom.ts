@@ -19,8 +19,8 @@ export const addConstant = (column: Column): void => {
 const addPoint = (color: string, pDomain: number, pValue: number): HTMLElement => {
     const point = document.createElement('div');
     point.className = 'point';
-    point.style.bottom = `${pValue * 100}px`;
-    point.style.left = `${pDomain * 1000}px`;
+    point.style.bottom = `${pValue * 200}px`;
+    point.style.left = `${pDomain * 2000}px`;
     point.style.backgroundColor = color;
     return point;
 };
