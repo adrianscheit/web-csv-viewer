@@ -1,8 +1,8 @@
 # Web CSV Viewer
-https://adrianscheit.github.io/csv-dt-viewer/
-## Goals: 
-- simple viewer of ASCII endocded CSV files, where the first line is a data description and the first column is the absolute time - that is a domain
-- expected data are numbers, to draw a diagram based on a first column
+https://adrianscheit.github.io/web-csv-viewer/
+
+## Goal: 
+Simple Web application, a viewer of ASCII/UTF-8 endocded CSV files, containing numerical data, where the first column is the domain.
 
 ### Local development
 ```sh
