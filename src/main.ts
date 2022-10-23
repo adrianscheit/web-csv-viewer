@@ -12,6 +12,7 @@ document.querySelector('input[type=file]')!.addEventListener('input', (event) =>
         .map((line) => line.split(','))
         .filter((line) => line.length);
       const columns = fields.shift()!.map((title, index) => new Column(title, index));
+      console.log(columns);
       const data: number[][] = fields.map((line) => line.map((field) => +field));
       setStatus(`There are ${fields.length} lines and ${columns.length} columns in the loaded file. Analysing file...`);
       if (fields.length < 2 || columns.length < 2) {
@@ -22,8 +23,6 @@ document.querySelector('input[type=file]')!.addEventListener('input', (event) =>
         columns.forEach((column) => column.add(line[column.index]));
       }
       const domain: Column = columns[0];
-      setStatus(`The domain column has: ${JSON.stringify(domain)}`);
-      setStatus(`The data columns: ${JSON.stringify(columns)}`);
 
       // print consts:
       for (const column of columns.filter((column) => column.quantity && column.isConstant())) {
