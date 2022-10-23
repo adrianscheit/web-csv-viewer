@@ -4,10 +4,9 @@ const statusText: Text = document.getElementById('status')!.appendChild(document
 const constans: HTMLElement = document.getElementById('constans')!;
 const diagrams: HTMLElement = document.getElementById('diagrams')!;
 
-export const setStatus = async (v: string) => {
+export const setStatus = (v: string) => {
     console.log(v);
     statusText.nodeValue = v;
-    await new Promise<void>((resolve) => setTimeout(() => resolve(), 25));
 };
 
 export const addConstant = (column: Column): void => {
@@ -16,32 +15,31 @@ export const addConstant = (column: Column): void => {
         .appendChild(document.createTextNode(`${column.title} = ${column.avg()}`));
 };
 
-const addPoint = (color: string, pDomain: number, pValue: number): HTMLElement => {
-    const point = document.createElement('div');
-    point.className = 'point';
-    point.style.bottom = `${pValue * 200}px`;
-    point.style.left = `${pDomain * 2000}px`;
-    point.style.backgroundColor = color;
+const svgNs = 'http://www.w3.org/2000/svg';
+
+const addPoint = (pDomain: number, pValue: number): SVGElement => {
+    const point = document.createElementNS(svgNs, 'rect');
+    point.setAttribute('y', `${199 - pValue * 199}`);
+    point.setAttribute('x', `${pDomain * 1999}`);
+    point.setAttribute('width', `1`);
+    point.setAttribute('height', `1`);
     return point;
 };
 
 export const addDiagram = (domain: Column, column: Column, data: number[][]): void => {
-    const diagram = diagrams.appendChild(document.createElement('div'));
-    diagram.className = 'diagram';
+    const diagram = diagrams.appendChild(document.createElementNS(svgNs, 'svg'));
+    diagram.classList.add('diagram');
+    diagram.style.fill = column.color;
 
     for (const line of data) {
         if (isNaN(line[domain.index]) || isNaN(line[column.index])) {
             continue;
         }
-        diagram.appendChild(addPoint(
-            column.color,
-            domain.getProprotion(line),
-            column.getProprotion(line),
-        ));
+        diagram.appendChild(addPoint(domain.getProprotion(line), column.getProprotion(line)));
     }
 
     diagrams
         .appendChild(document.createElement('strong'))
-        .appendChild(document.createTextNode(`${column.title}(${domain.title}) min=${column.min}, max=${column.max}, avg=${column.avg()}`))
+        .appendChild(document.createTextNode(`${column.title}(${domain.title}) min=${column.min}, max=${column.max}, avg=${column.avg()}, color=${column.color}`))
     diagrams.appendChild(diagram);
 };

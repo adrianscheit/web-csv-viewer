@@ -4,8 +4,6 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "test": "l.sh",
-    "start": "d.sh"
   },
   "repository": {
     "type": "git",
