@@ -1,4 +1,4 @@
-# Modbus
+# Web CSV Viewer
 https://adrianscheit.github.io/csv-dt-viewer/
 ## Goals: 
 - simple viewer of ASCII endocded CSV files, where the first line is a data description and the first column is the absolute time - that is a domain
