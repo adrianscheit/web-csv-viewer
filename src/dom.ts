@@ -41,6 +41,6 @@ export const addDiagram = (domain: Column, column: Column, data: number[][]): vo
 
     diagrams
         .appendChild(document.createElement('strong'))
-        .appendChild(document.createTextNode(`${column.title}(${domain.title})`))
+        .appendChild(document.createTextNode(`${column.title}(${domain.title}) min=${column.min}, max=${column.max}, avg=${column.avg}`))
     diagrams.appendChild(diagram);
 };
