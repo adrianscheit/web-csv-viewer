@@ -21,7 +21,7 @@ document.querySelector('input[type=file]')!.addEventListener('input', (event) =>
       for (const line of data) {
         columns.forEach((column) => column.add(line[column.index]));
       }
-      const domain: Column = columns.shift()!;
+      const domain: Column = columns[0];
       await setStatus(`The domain column has: ${JSON.stringify(domain)}`);
       await setStatus(`The data columns: ${JSON.stringify(columns)}`);
 
@@ -33,7 +33,7 @@ document.querySelector('input[type=file]')!.addEventListener('input', (event) =>
       // draw diagram:
       const diagramColumns = columns.filter((column) => !column.isConstant());
       diagramColumns.forEach(async (column, index) => {
-        await setStatus(`Drawing points ${100 * index / diagramColumns.length}%. Drawing ${column.title}...`);
+        await setStatus(`Drawing points ${Math.round(100 * index / diagramColumns.length)}%. Drawing ${column.title}...`);
         addDiagram(domain, column, data);
       });
 
