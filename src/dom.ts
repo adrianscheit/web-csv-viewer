@@ -4,9 +4,10 @@ const statusText: Text = document.getElementById('status')!.appendChild(document
 const constans: HTMLElement = document.getElementById('constans')!;
 const diagrams: HTMLElement = document.getElementById('diagrams')!;
 
-export const setStatus = (v: string): void => {
-    statusText.nodeValue = v;
+export const setStatus = async (v: string) => {
     console.log(v);
+    statusText.nodeValue = v;
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 10));
 };
 
 export const addConstant = (column: Column): void => {
@@ -18,9 +19,9 @@ export const addConstant = (column: Column): void => {
 const addPoint = (color: string, pDomain: number, pValue: number): HTMLElement => {
     const point = document.createElement('div');
     point.className = 'point';
-    point.style.bottom = `${pValue * 100 + 10}px`;
-    point.style.left = `${pDomain * 1000 + 50}px`;
-    point.style.borderColor = color;
+    point.style.bottom = `${pValue * 100}px`;
+    point.style.left = `${pDomain * 1000}px`;
+    point.style.backgroundColor = color;
     return point;
 };
 
@@ -41,6 +42,6 @@ export const addDiagram = (domain: Column, column: Column, data: number[][]): vo
 
     diagrams
         .appendChild(document.createElement('strong'))
-        .appendChild(document.createTextNode(`${column.title}(${domain.title}) min=${column.min}, max=${column.max}, avg=${column.avg}`))
+        .appendChild(document.createTextNode(`${column.title}(${domain.title}) min=${column.min}, max=${column.max}, avg=${column.avg()}`))
     diagrams.appendChild(diagram);
 };
