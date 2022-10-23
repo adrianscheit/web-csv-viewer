@@ -7,7 +7,7 @@ const diagrams: HTMLElement = document.getElementById('diagrams')!;
 export const setStatus = async (v: string) => {
     console.log(v);
     statusText.nodeValue = v;
-    await new Promise<void>((resolve) => setTimeout(() => resolve(), 10));
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 25));
 };
 
 export const addConstant = (column: Column): void => {
