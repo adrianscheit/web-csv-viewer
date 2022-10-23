@@ -7,11 +7,11 @@ export class Column {
   readonly color: string;
 
   constructor(readonly title: string, readonly index: number) {
-    this.color = `#${this.hexFromIndexMul(17)}${this.hexFromIndexMul(23)}${this.hexFromIndexMul(37)}`;
+    this.color = `#${this.hexFromIndexMul(57)}${this.hexFromIndexMul(23)}${this.hexFromIndexMul(37)}`;
   }
 
   private hexFromIndexMul(mul: number): string {
-    return ((mul * this.index) & 0xff).toString(16);
+    return (((mul * this.index) & 0x7F) + 32).toString(16);
   }
 
   add(v: number): void {
