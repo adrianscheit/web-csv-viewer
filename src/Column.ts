@@ -11,7 +11,7 @@ export class Column {
   }
 
   private hexFromIndexMul(mul: number): string {
-    return (((mul * this.index) & 0x7F) + 32).toString(16);
+    return (((mul * this.index) & 0x7F) + 64).toString(16);
   }
 
   add(v: number): void {
@@ -20,10 +20,11 @@ export class Column {
     }
     if (this.quantity === 0) {
       this.min = this.max = v;
-    } else if (v < this.min)
+    } else if (v < this.min) {
       this.min = v;
-    else if (v > this.max)
+    } else if (v > this.max) {
       this.max = v;
+    }
     this.amplitude = this.max - this.min;
     ++this.quantity;
     this.sum += v;
