@@ -12,8 +12,8 @@ export const setStatus = async (v: string) => {
 
 export const addConstant = (column: Column): void => {
     constans
-        .appendChild(document.createElement('div'))
-        .appendChild(document.createTextNode(`${column.title} = ${column.avg()}`));
+        .appendChild(document.createElement('li'))
+        .appendChild(document.createTextNode(`${column.title} = ${column.avg()} (${column.quantity} times)`));
 };
 
 const diagramWidth = 2048;
