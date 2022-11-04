@@ -7,14 +7,18 @@ document.querySelector('input[type=file]')!.addEventListener('input', async (eve
     setStatus(`Reading a text file of ${files[0].size}B...`);
     const reader = new FileReader();
     reader.onload = async () => {
+      await setStatus(`Parsing file...`);
+
       const fields: string[][] = (reader.result as string)
         .split(/\r\n|\n\r|\n|\r/)
         .map((line) => line.split(','))
         .filter((line) => line.length);
-      const columns = fields.shift()!.map((title, index) => new Column(title, index));
+      const columns: Column[] = fields.shift()!.map((title, index) => new Column(title, index));
       console.log(columns);
       const data: number[][] = fields.map((line) => line.map((field) => +field));
-      await setStatus(`There are ${fields.length} lines and ${columns.length} columns in the loaded file. Analysing file...`);
+
+      await setStatus(`There are ${fields.length} lines and ${columns.length} columns in the loaded file. Analysing file data...`);
+
       if (fields.length < 2 || columns.length < 2) {
         setStatus('the file is too small');
         return;
