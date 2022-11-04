@@ -27,8 +27,8 @@ const drawColumn = (data: number[][], domain: Column, column: Column, context: C
         context.fillRect(
             domain.getProprotion(line) * diagramWidth,
             diagramHeight - column.getProprotion(line) * diagramHeight,
-            0.7,
-            0.7,
+            1,
+            1,
         );
     }
 }
