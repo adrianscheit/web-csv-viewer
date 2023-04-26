@@ -1,4 +1,4 @@
-# Web CSV Viewer
+# WEB CSV Viewer
 https://adrianscheit.github.io/web-csv-viewer/
 
 ## Goal: 
