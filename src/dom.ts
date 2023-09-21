@@ -19,17 +19,14 @@ export const addConstant = (column: Column): void => {
 const diagramWidth = 2048;
 const diagramHeight = 256;
 
+const getY = (proportion: number): number => diagramHeight - proportion * diagramHeight;
+
 const drawColumn = (data: number[][], domain: Column, column: Column, context: CanvasRenderingContext2D): void => {
     for (const line of data) {
         if (isNaN(line[domain.index]) || isNaN(line[column.index])) {
             continue;
         }
-        context.fillRect(
-            domain.getProprotion(line) * diagramWidth,
-            diagramHeight - column.getProprotion(line) * diagramHeight,
-            1,
-            1,
-        );
+        context.fillRect(domain.getProportion(line) * diagramWidth, getY(column.getProportion(line)), 1, 1);
     }
 }
 
@@ -44,6 +41,8 @@ export const addDiagram = (domain: Column, column: Column, data: number[][]): vo
     canvas.height = diagramHeight + 1;
     const context: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
+    context.fillStyle = '#aaa';
+    context.fillRect(0, getY(column.getProportionForZero()), diagramWidth, 1);
     context.fillStyle = column.color;
     drawColumn(data, domain, column, context);
 };
