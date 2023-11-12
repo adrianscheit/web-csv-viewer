@@ -4,17 +4,19 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
+    "start": "npx webpack && l.sh",
+    "d": "git pull && npm outdated && npm update && npx webpack && git add -A && git commit -m. && git push"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adrianscheit/csv-dt-viewer.git"
+    "url": "git+https://github.com/adrianscheit/web-csv-viewer.git"
   },
   "author": "",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/adrianscheit/csv-dt-viewer/issues"
+    "url": "https://github.com/adrianscheit/web-csv-viewer/issues"
   },
-  "homepage": "https://github.com/adrianscheit/csv-dt-viewer#readme",
+  "homepage": "https://github.com/adrianscheit/web-csv-viewer",
   "devDependencies": {
     "ts-loader": "9",
     "typescript": "5",
