@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/adrianscheit/web-csv-viewer/issues"
   },
-  "homepage": "https://github.com/adrianscheit/web-csv-viewer",
+  "homepage": "https://github.com/adrianscheit/web-csv-viewer#readme",
   "devDependencies": {
     "ts-loader": "9",
     "typescript": "5",
