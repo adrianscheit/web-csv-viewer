@@ -5,7 +5,7 @@
   "main": "src/main.ts",
   "scripts": {
     "start": "npx webpack && l.sh",
-    "d": "git pull && npm outdated && npm update && npx webpack && git add -A && git commit -m. && git push"
+    "d": "git pull && npm outdated && npm update && npx webpack && git status && git commit -am. && git push"
   },
   "repository": {
     "type": "git",
