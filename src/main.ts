@@ -41,13 +41,17 @@ const parseFile = async (fileContent: string): Promise<void> => {
 };
 
 (async () => {
-  const params: [string, string][] = window.location.search
-    .substring(1)
-    .split('&')
-    .map((keyValue) => keyValue.split('=').map((it) => window.decodeURIComponent(it)) as [string, string]);
+  const params: { [key: string]: string } = Object.fromEntries(
+    window.location.search
+      .substring(1)
+      .split('&')
+      .map((keyValue) => keyValue.split('=').map((it) => window.decodeURIComponent(it)) as ([string, string]))
+  );
 
-  if (params[0][0] === 'fetch') {
-    const response = await window.fetch(params[0][1]);
+  const fetchUrl = params['fetch'];
+  if (fetchUrl) {
+    (document.getElementsByName('fetch')[0] as HTMLInputElement).value = fetchUrl;
+    const response = await window.fetch(fetchUrl);
     await parseFile(await response.text());
   }
 })();
