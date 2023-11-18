@@ -5,7 +5,8 @@
   "main": "src/main.ts",
   "scripts": {
     "start": "npx webpack && npx http-server -o / docs",
-    "d": "git pull && npm outdated && npm update && npx webpack && git status && git commit -am. && git push"
+    "d": "git pull && npm outdated && npm update && npx webpack && git status && git commit -am. && git push",
+    "gen": "ts-node generate-sample-data.ts > docs/sample.csv"
   },
   "repository": {
     "type": "git",
