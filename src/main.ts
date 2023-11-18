@@ -51,8 +51,10 @@ const parseFile = async (fileContent: string): Promise<void> => {
   const fetchUrl = params['fetch'];
   if (fetchUrl) {
     (document.getElementsByName('fetch')[0] as HTMLInputElement).value = fetchUrl;
-    const response = await window.fetch(fetchUrl);
-    await parseFile(await response.text());
+    await setStatus(`fetching ${fetchUrl}`);
+    fetch(fetchUrl)
+      .then((response: Response) => response.text().then((content: string) => parseFile(content).catch((reason) => setStatus(`fetch text failed: ${reason}`))))
+      .catch((reason) => setStatus(`fetching failed: ${reason}`));
   }
 })();
 
