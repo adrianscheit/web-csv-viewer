@@ -4,9 +4,10 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "start": "npx webpack && npx http-server -o / docs",
-    "d": "git pull && npm outdated && npm update && npx webpack && git status && git commit -am. && git push",
-    "gen": "ts-node generate-sample-data.ts > docs/sample.csv && ls -l docs/sample.csv"
+    "build": "webpack",
+    "start": "npm run build && npx http-server -o / pages",
+    "d": "git pull && npm outdated && npm update && npm run build && git status && git commit -am. && git push",
+    "gen": "ts-node generate-sample-data.ts > pages/sample.csv && ls -l pages/sample.csv"
   },
   "repository": {
     "type": "git",
