@@ -1,3 +1,4 @@
+import { Canvas } from "./canvas";
 import { Column } from "./column";
 
 const statusText: Text = document.getElementById('status')!.appendChild(document.createTextNode(''));
@@ -21,59 +22,18 @@ export const addConstant = (column: Column): void => {
         .appendChild(document.createTextNode(`${column.title} = ${column.avg()} (${column.quantity} times) ${new Date().toISOString()}`));
 };
 
-const diagramWidth = 2048;
-const diagramHeight = 256;
-
-const getY = (proportion: number): number => diagramHeight - proportion * diagramHeight;
-
-const drawColumn = (data: number[][], domain: Column, column: Column, context: CanvasRenderingContext2D): void => {
-    context.strokeStyle = column.color;
-    context.beginPath();
-    let moveTo = true;
-    for (const line of data) {
-        if (isNaN(line[domain.index]) || isNaN(line[column.index])) {
-            moveTo = true;
-            continue;
-        }
-        const x = domain.getProportion(line) * diagramWidth;
-        const y = getY(column.getProportion(line));
-        if (moveTo) {
-            context.moveTo(x, y);
-            moveTo = false;
-        } else {
-            context.lineTo(x, y);
-        }
-    }
-    context.stroke();
-}
-
 export const addDiagram = (domain: Column, column: Column, data: number[][]): void => {
-    results
-        .appendChild(document.createElement('h4'))
-        .appendChild(document.createTextNode(`${column.title}(${domain.title}) ${new Date().toISOString()} min=${column.min}, max=${column.max}, avg=${column.avg()}, color=${column.color}`))
-    const canvas = results.appendChild(results.appendChild(document.createElement('canvas')));
-
-    canvas.className = 'diagram';
-    canvas.width = diagramWidth + 1;
-    canvas.height = diagramHeight + 1;
-    const context: CanvasRenderingContext2D = canvas.getContext('2d')!;
-
-    context.fillStyle = '#aaa';
-    context.fillRect(0, getY(column.getProportionForZero()), diagramWidth, 1);
-    drawColumn(data, domain, column, context);
+    const canvas = new Canvas(`${column.title}(${domain.title}) ${new Date().toISOString()} min=${column.min}, max=${column.max}, avg=${column.avg()}, color=${column.color}`);
+    results.appendChild(canvas.element);
+    canvas.drawXAxis(column);
+    canvas.drawColumn(data, domain, column);
 };
 
 export const addSummaryDiagram = (domain: Column, columns: Column[], data: number[][]): void => {
-    results
-        .appendChild(document.createElement('h4'))
-        .appendChild(document.createTextNode(`SUMMARY(${domain.title}) ${new Date().toISOString()}`))
-    const canvas = results.appendChild(results.appendChild(document.createElement('canvas')));
-    canvas.className = 'diagram';
-    canvas.width = diagramWidth + 1;
-    canvas.height = diagramHeight + 1;
-    const context: CanvasRenderingContext2D = canvas.getContext('2d')!;
+    const canvas = new Canvas(`SUMMARY(${domain.title}) ${new Date().toISOString()}`);
+    results.appendChild(canvas.element);
 
     for (const column of columns) {
-        drawColumn(data, domain, column, context);
+        canvas.drawColumn(data, domain, column);
     }
 };
