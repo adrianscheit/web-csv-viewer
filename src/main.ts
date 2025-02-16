@@ -1,5 +1,5 @@
 import { Column } from "./column";
-import { addConstant, addDiagram, addSummaryDiagram, setStatus } from "./dom";
+import { addConstant, addDiagram, addFile, addSummaryDiagram, setStatus } from "./dom";
 
 const parseFile = async (fileContent: string): Promise<void> => {
   await setStatus(`Parsing file...`);
@@ -22,6 +22,8 @@ const parseFile = async (fileContent: string): Promise<void> => {
     columns.forEach((column) => column.add(line[column.index]));
   }
   const domain: Column = columns[0];
+
+  addFile(fileContent.length);
 
   // print consts:
   for (const column of columns.filter((column) => column.quantity && column.isConstant())) {

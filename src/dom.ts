@@ -1,8 +1,7 @@
 import { Column } from "./column";
 
 const statusText: Text = document.getElementById('status')!.appendChild(document.createTextNode(''));
-const constans: HTMLElement = document.getElementById('constans')!;
-const diagrams: HTMLElement = document.getElementById('diagrams')!;
+const results: HTMLElement = document.getElementById('results')!;
 
 export const setStatus = async (v: string) => {
     console.log(v);
@@ -10,8 +9,14 @@ export const setStatus = async (v: string) => {
     await new Promise<void>((resolve) => setTimeout(resolve, 20))
 };
 
+export const addFile = (fileContentLength: number): void => {
+    results
+        .appendChild(document.createElement('h3'))
+        .appendChild(document.createTextNode(`File loaded at ${new Date().toLocaleTimeString()} with ${fileContentLength} characters`));
+};
+
 export const addConstant = (column: Column): void => {
-    constans
+    results
         .appendChild(document.createElement('li'))
         .appendChild(document.createTextNode(`${column.title} = ${column.avg()} (${column.quantity} times) ${new Date().toISOString()}`));
 };
@@ -43,10 +48,10 @@ const drawColumn = (data: number[][], domain: Column, column: Column, context: C
 }
 
 export const addDiagram = (domain: Column, column: Column, data: number[][]): void => {
-    diagrams
-        .appendChild(document.createElement('strong'))
+    results
+        .appendChild(document.createElement('h4'))
         .appendChild(document.createTextNode(`${column.title}(${domain.title}) ${new Date().toISOString()} min=${column.min}, max=${column.max}, avg=${column.avg()}, color=${column.color}`))
-    const canvas = diagrams.appendChild(diagrams.appendChild(document.createElement('canvas')));
+    const canvas = results.appendChild(results.appendChild(document.createElement('canvas')));
 
     canvas.className = 'diagram';
     canvas.width = diagramWidth + 1;
@@ -59,10 +64,10 @@ export const addDiagram = (domain: Column, column: Column, data: number[][]): vo
 };
 
 export const addSummaryDiagram = (domain: Column, columns: Column[], data: number[][]): void => {
-    diagrams
-        .appendChild(document.createElement('strong'))
+    results
+        .appendChild(document.createElement('h4'))
         .appendChild(document.createTextNode(`SUMMARY(${domain.title}) ${new Date().toISOString()}`))
-    const canvas = diagrams.appendChild(diagrams.appendChild(document.createElement('canvas')));
+    const canvas = results.appendChild(results.appendChild(document.createElement('canvas')));
     canvas.className = 'diagram';
     canvas.width = diagramWidth + 1;
     canvas.height = diagramHeight + 1;
