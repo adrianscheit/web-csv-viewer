@@ -10,7 +10,7 @@ const parseFile = async (fileContent: string): Promise<void> => {
     .filter((line) => line.length);
   const columns: Column[] = fields.shift()!.map((title, index) => new Column(title, index));
   console.log(columns);
-  const data: number[][] = fields.map((line) => line.map((field) => +field));
+  const data: number[][] = fields.map((line) => line.map((field) => +parseFloat(field)));
 
   await setStatus(`There are ${fields.length} lines and ${columns.length} columns in the loaded file. Analysing file data...`);
 

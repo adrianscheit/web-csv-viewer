@@ -22,13 +22,24 @@ const diagramHeight = 256;
 const getY = (proportion: number): number => diagramHeight - proportion * diagramHeight;
 
 const drawColumn = (data: number[][], domain: Column, column: Column, context: CanvasRenderingContext2D): void => {
-    context.fillStyle = column.color;
+    context.strokeStyle = column.color;
+    context.beginPath();
+    let moveTo = true;
     for (const line of data) {
         if (isNaN(line[domain.index]) || isNaN(line[column.index])) {
+            moveTo = true;
             continue;
         }
-        context.fillRect(domain.getProportion(line) * diagramWidth, getY(column.getProportion(line)), 1, 1);
+        const x = domain.getProportion(line) * diagramWidth;
+        const y = getY(column.getProportion(line));
+        if (moveTo) {
+            context.moveTo(x, y);
+            moveTo = false;
+        } else {
+            context.lineTo(x, y);
+        }
     }
+    context.stroke();
 }
 
 export const addDiagram = (domain: Column, column: Column, data: number[][]): void => {
