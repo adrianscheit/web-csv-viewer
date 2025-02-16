@@ -1,8 +1,8 @@
 import { Column } from "./column";
-import { addConstant, addDiagram, addFile, addSummaryDiagram, setStatus } from "./dom";
+import { Dom } from "./dom";
 
 const parseFile = async (fileContent: string): Promise<void> => {
-  await setStatus(`Parsing file...`);
+  await Dom.setStatus(`Parsing file...`);
 
   const fields: string[][] = fileContent
     .split(/\r\n|\n\r|\n|\r/)
@@ -12,10 +12,11 @@ const parseFile = async (fileContent: string): Promise<void> => {
   console.log(columns);
   const data: number[][] = fields.map((line) => line.map((field) => +parseFloat(field)));
 
-  await setStatus(`There are ${fields.length} lines and ${columns.length} columns in the loaded file. Analysing file data...`);
+  Dom.addFile(fileContent.length);
+  await Dom.setStatus(`There are ${fields.length} lines and ${columns.length} columns in the loaded file. Analysing file data...`);
 
   if (fields.length < 2 || columns.length < 2) {
-    setStatus('the file is too small');
+    Dom.setStatus('the file is too small');
     return;
   }
   for (const line of data) {
@@ -23,23 +24,21 @@ const parseFile = async (fileContent: string): Promise<void> => {
   }
   const domain: Column = columns[0];
 
-  addFile(fileContent.length);
-
   // print consts:
   for (const column of columns.filter((column) => column.quantity && column.isConstant())) {
-    addConstant(column);
+    Dom.addConstant(column);
   }
 
   // draw diagram:
   const diagramColumns = columns.filter((column) => !column.isConstant());
   for (let i = 0; i < diagramColumns.length; ++i) {
-    await setStatus(`Drawing points ${Math.round(10 + 60 * i / diagramColumns.length)}%. Drawing ${diagramColumns[i].title}...`);
-    addDiagram(domain, diagramColumns[i], data);
+    await Dom.setStatus(`Drawing points ${Math.round(10 + 60 * i / diagramColumns.length)}%. Drawing ${diagramColumns[i].title}...`);
+    Dom.addDiagram(domain, diagramColumns[i], data);
   }
-  await setStatus(`Drawind summary diagram...`);
-  addSummaryDiagram(domain, diagramColumns.slice(1), data);
+  await Dom.setStatus(`Drawind summary diagram...`);
+  Dom.addSummaryDiagram(domain, diagramColumns.slice(1), data);
 
-  await setStatus(`Done!`);
+  await Dom.setStatus(`Done!`);
 };
 
 (async () => {
@@ -53,17 +52,17 @@ const parseFile = async (fileContent: string): Promise<void> => {
   const fetchUrl = params['fetch'];
   if (fetchUrl) {
     (document.getElementsByName('fetch')[0] as HTMLInputElement).value = fetchUrl;
-    await setStatus(`fetching ${fetchUrl}`);
+    await Dom.setStatus(`fetching ${fetchUrl}`);
     fetch(fetchUrl)
-      .then((response: Response) => response.text().then((content: string) => parseFile(content).catch((reason) => setStatus(`fetch text failed: ${reason}`))))
-      .catch((reason) => setStatus(`fetching failed: ${reason}`));
+      .then((response: Response) => response.text().then((content: string) => parseFile(content).catch((reason) => Dom.setStatus(`fetch text failed: ${reason}`))))
+      .catch((reason) => Dom.setStatus(`fetching failed: ${reason}`));
   }
 })();
 
 document.querySelector('input[type=file]')!.addEventListener('input', async (event) => {
   const files: FileList = (event.target as any).files;
   if (files.length === 1) {
-    setStatus(`Reading a text file of ${files[0].size}B...`);
+    Dom.setStatus(`Reading a text file of ${files[0].size}B...`);
     const reader = new FileReader();
     reader.onload = () => {
       parseFile(reader.result as string);
