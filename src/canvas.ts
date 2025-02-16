@@ -16,8 +16,12 @@ export class Canvas {
     }
 
     drawXAxis(column: Column): void {
-        this.context.fillStyle = '#aaa';
-        this.context.fillRect(0, this.getY(column.getProportionForZero()), Canvas.diagramWidth, 1);
+        this.context.strokeStyle = '#000';
+        this.context.beginPath();
+        const y = this.getY(column.getProportionForZero());
+        this.context.moveTo(0, y);
+        this.context.lineTo(Canvas.diagramWidth, y);
+        this.context.stroke();
     }
 
     drawColumn(data: number[][], domain: Column, column: Column): void {
