@@ -1,4 +1,4 @@
-import { Column } from "./Column";
+import { Column } from "./column";
 import { addConstant, addDiagram, addSummaryDiagram, setStatus } from "./dom";
 
 const parseFile = async (fileContent: string): Promise<void> => {

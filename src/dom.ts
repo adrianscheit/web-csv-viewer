@@ -1,4 +1,4 @@
-import { Column } from "./Column";
+import { Column } from "./column";
 
 const statusText: Text = document.getElementById('status')!.appendChild(document.createTextNode(''));
 const constans: HTMLElement = document.getElementById('constans')!;
@@ -22,6 +22,7 @@ const diagramHeight = 256;
 const getY = (proportion: number): number => diagramHeight - proportion * diagramHeight;
 
 const drawColumn = (data: number[][], domain: Column, column: Column, context: CanvasRenderingContext2D): void => {
+    context.fillStyle = column.color;
     for (const line of data) {
         if (isNaN(line[domain.index]) || isNaN(line[column.index])) {
             continue;
@@ -43,7 +44,6 @@ export const addDiagram = (domain: Column, column: Column, data: number[][]): vo
 
     context.fillStyle = '#aaa';
     context.fillRect(0, getY(column.getProportionForZero()), diagramWidth, 1);
-    context.fillStyle = column.color;
     drawColumn(data, domain, column, context);
 };
 
@@ -58,7 +58,6 @@ export const addSummaryDiagram = (domain: Column, columns: Column[], data: numbe
     const context: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
     for (const column of columns) {
-        context.fillStyle = column.color;
         drawColumn(data, domain, column, context);
     }
 };
