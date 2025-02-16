@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/adrianscheit/web-csv-viewer.git"
   },
-  "author": "",
+  "author": "Adrian Scheit",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/adrianscheit/web-csv-viewer/issues"
@@ -23,6 +23,6 @@
     "http-server": "14",
     "ts-loader": "9",
     "typescript": "5",
-    "webpack-cli": "5"
+    "webpack-cli": "6"
   }
 }
